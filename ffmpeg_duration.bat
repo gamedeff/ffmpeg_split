@@ -1,9 +1,12 @@
 @echo off
 
 set "input=%~1"
+set "ffmpeg=%~2"
+
+rem echo "%ffmpeg%" -i "%input%" 2^>^&1
 
 rem search "  Duration: HH:MM:SS.mm, start: NNNN.NNNN, bitrate: xxxx kb/s"
-for /F "tokens=1,2,3,4,5,6 delims=:., " %%i in ('ffmpeg -i "%input%" 2^>^&1') do (
+for /F "tokens=1,2,3,4,5,6 delims=:., " %%i in ('chcp 1251 ^&^& "%ffmpeg%" -i "%input%" 2^>^&1') do (
     rem echo "%%i"
     if "%%i"=="Duration" call :calcLength %%j %%k %%l %%m
 )
